@@ -23,11 +23,44 @@ export default class Btn extends Component {
     return `Your value does not exist. Took ${count} steps to figure that out`;
   }
 
+  binarySearch(value, start = 0, end = this.props.arr.length - 1, count = 0) {
+    value = parseInt(value, 10);
+    let arr = this.props.arr;
+    let middle = Math.floor((end + start) / 2);
+
+    if (value < arr[start] || value > arr[end]) {
+      count++;
+      return `Your value does not exist. Took ${count} steps to figure that out`;
+    }
+    
+    if (arr[middle] === value) {
+      count++;
+      return `Found ${value} in ${count} steps`;
+    }
+
+    if (value > arr[middle]) {
+      start = middle + 1;
+      count++;
+      return this.binarySearch(value, start, end, count);
+    }
+
+    if (value < arr[middle]) {
+      end = middle - 1;
+      count++;
+      return this.binarySearch(value, start, end, count);
+    }
+
+    if (start > end) {
+      count++;
+      return `Your value does not exist. Took ${count} steps to figure that out`;
+    }
+  }
+
   onClick(inputValue){
     if(this.props.name === 'linear-search'){
       console.log(this.linearSearch(inputValue));
     }else{
-      this.binarySearch(inputValue);
+      console.log(this.binarySearch(inputValue));
     }
   }
   render() {
