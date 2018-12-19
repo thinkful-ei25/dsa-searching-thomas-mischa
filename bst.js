@@ -1,4 +1,4 @@
-
+'use strict';
 
 class BinarySearchTree{
   constructor(key=null, value=null, parent=null){
@@ -157,6 +157,17 @@ class BinarySearchTree{
   
   }
 }
+
+function preOrder(bst){
+  console.log(bst.key);
+  if(bst.left){
+    preOrder(bst.left);
+  }
+  if(bst.right){
+    preOrder(bst.right);
+  }
+}
+
 const profits = new BinarySearchTree();
 profits.insert(25);
 profits.insert(15);
@@ -173,9 +184,9 @@ profits.insert(44);
 profits.insert(66);
 profits.insert(90);
 profits.insert(22);
-
+preOrder(profits);
 // profits.preOrder();
-profits.inOrder();
+// profits.inOrder();
 // profits.postOrder();
 
 /* 
@@ -193,3 +204,75 @@ pre-order: 25 15 10 24 50
 
 
 //pre-order
+
+
+
+
+
+/* MAX PROFIT */
+/*               - - - - - -               */
+let days = [128, 97, 121, 123, 98, 97, 105];
+// let min = 0;
+// let max = days.length - 1;
+// let tempMin;
+// let tempMax;
+// let profit = tempMax - tempMin;
+
+// if (days[min] > days[max]) {
+//   min = max;
+// }
+
+function maxProfit(days) {
+  // let min = 0;
+  // let max = 0;
+  // let tempProfit = 0;
+  // let tempMin = 0;
+  // let tempMax = 0;
+  // let profit = 0;
+
+// solves for question - max profit;
+//   for (let i = min; i < days.length - 1; i++) {
+//     console.log('min: ', days[i]);
+//     max++;
+//     for (let j = max; j < days.length; j++) {
+//       if(days[j] - days[i] > profit) {
+//         profit = days[j] - days[i];
+//       }
+//       console.log(`max: -- ${days[j]} -- profit: ${profit}`);
+//     }
+//   }
+// }
+
+  // for (let i = tempMin; i < days.length - 1; i++) {
+  //   console.log('min: ', days[i]);
+  //   tempMax++;
+  //   for (let j = tempMax; j < days.length; j++) {
+  //     if(days[j] - days[i] > profit) {
+  //       profit = days[j] - days[i];
+  //       min = i;
+  //       max = j;
+  //     }
+  //     console.log(`max: -- ${days[j]} -- profit: ${profit}`);
+  //   }
+  // }
+  // return `The day to buy is day ${min + 1} and the day to sell is day ${max + 1} for a profit of $${profit}`;
+  
+  
+  // [128, 97, 121, 123, 98, 97, 105]
+  let buy = days[0];
+  let sell = days[0]; 
+  let profit = 0;
+  for (let i = 1; i < days.length; i++) {
+    sell = days[i];
+    if (sell < buy) {
+      buy = days[i];
+    } 
+    if (sell > buy && sell - buy > profit) {
+      profit = sell - buy;
+    }
+  }
+  return `Maximum profit is $${profit}`;
+}
+
+console.log(maxProfit(days));
+
