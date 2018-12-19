@@ -2,25 +2,18 @@ import React, { Component, Fragment } from 'react';
 
 
 export default class Btn extends Component {
-  // constructor(props){
-  //   super(props);
-  //   this.state = {
-  //     input : '',
-  //     array : [89, 30, 25, 32, 72]
-  //   }
-  // }
 
   linearSearch(value){
     value = parseInt(value, 10);
     let count = 0;
     for(let i = 0; i < this.props.arr.length; i++){
-      console.log(this.props.arr);
+      // console.log(this.props.arr);
       count ++;
       if(this.props.arr[i] === value){
-        return `Found your value in ${count} steps`
+        return `Linear search: Found ${value} in ${count} steps`
       }
     }
-    return `Your value does not exist. Took ${count} steps to figure that out`;
+    return `Linear search: Your value does not exist. Took ${count} steps to figure that out`;
   }
 
   binarySearch(value, start = 0, end = this.props.arr.length - 1, count = 0) {
@@ -30,12 +23,12 @@ export default class Btn extends Component {
 
     if (value < arr[start] || value > arr[end]) {
       count++;
-      return `Your value does not exist. Took ${count} steps to figure that out`;
+      return `Binary search: Your value does not exist. Took ${count} steps to figure that out`;
     }
     
     if (arr[middle] === value) {
       count++;
-      return `Found ${value} in ${count} steps`;
+      return `Binary search: Found ${value} in ${count} steps`;
     }
 
     if (value > arr[middle]) {
@@ -52,14 +45,18 @@ export default class Btn extends Component {
 
     if (start > end) {
       count++;
-      return `Your value does not exist. Took ${count} steps to figure that out`;
+      return `Binary search: Your value does not exist. Took ${count} steps to figure that out`;
     }
   }
 
   onClick(inputValue){
     if(this.props.name === 'linear-search'){
+      const result = this.linearSearch(inputValue);
+      this.props.output(result);
       console.log(this.linearSearch(inputValue));
     }else{
+      const result = this.binarySearch(inputValue);
+      this.props.output(result);
       console.log(this.binarySearch(inputValue));
     }
   }
